@@ -1,4 +1,4 @@
-# Wave Playground (Next.js + TypeScript)
+# PhaseShift
 
 ![Wave Playground Screenshot](public/screenshot.png)
 
