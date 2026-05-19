@@ -1,5 +1,7 @@
 # Wave Playground (Next.js + TypeScript)
 
+![Wave Playground Screenshot](public/screenshot.png)
+
 This project has been fully converted from a single-page vanilla JS app into a **Next.js (App Router) + TypeScript** application while preserving the exact look & behavior of the original Wave Playground.
 
 ## What's New
