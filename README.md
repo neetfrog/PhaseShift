@@ -2,82 +2,48 @@
 
 ![Wave Playground Screenshot](public/screenshot.png)
 
-This project has been fully converted from a single-page vanilla JS app into a **Next.js (App Router) + TypeScript** application while preserving the exact look & behavior of the original Wave Playground.
+A modern Next.js + TypeScript port of the original Wave Playground, preserving the same interactive wave simulation and UI while updating the codebase for React App Router and strict typing.
 
-## What's New
+## Highlights
 
-- Modern React/Next.js architecture (`app/` directory)
-- All original JavaScript modules converted to strongly-typed **TypeScript** (no `.js` sources remain)
-- Asset pipeline via Next.js (icons moved to `public/`)
-- Global CSS migrated to `app/globals.css`
-- Client-only execution guarded using a client component so browser APIs (canvas, localStorage, matchMedia, ResizeObserver) work exactly as before
+- Fully ported from vanilla JavaScript to TypeScript
+- Client-only canvas simulation with responsive controls
+- Preset save/load/export/import using localStorage
+- Adaptive performance heuristics and visual customization
 
-## Features (unchanged from original)
-
-- Multi-layer animated wave simulation with physics & turbulence
-- Interaction modes: push, pull, gravity, swirl, off
-- Adaptive auto-detail + performance heuristics
-- Preset save/load/export/import (localStorage)
-- Full visual customization (color modes, glow, blend, trail, etc.)
-
-## Tech Stack
-
-- Next.js 16 (App Router)
-- React 19.2.3
-- TypeScript strict mode
-
-## Development
-
-Install dependencies and run the dev server:
+## Quick Start
 
 ```powershell
 npm install
 npm run dev
 ```
 
-Then open: http://localhost:3000
+Open: `http://localhost:3000`
 
-## Production Build
+## Build for Production
 
 ```powershell
 npm run build
 npm run start
 ```
 
-## File Overview
+## Project Structure
 
-- `app/layout.tsx` – Root layout & metadata
-- `app/page.tsx` – Main client component rendering the full UI & canvas
-- `app/globals.css` – Global styles (from original `styles.css`)
-- `app/lib/` – Ported & typed logic from original `/js` modules:
-  - `config.ts`, `state.ts`, `main.ts`, `draw.ts`, `simulation.ts`, `context.ts`, `ui.ts`, `layers.ts`, `samples.ts`, `turbulence.ts`, `noise.ts`, `presets.ts`, `randomize.ts`, `input.ts`, `utils.ts`
-- `public/` – Icons / favicons (moved from root)
+- `app/layout.tsx` – Root layout, metadata, and global wrapper
+- `app/page.tsx` – Client page rendering the full canvas UI
+- `app/globals.css` – Global styles
+- `src/` – Main application logic
+  - `core/` – simulation, drawing, input, utilities, state, presets
+  - `main/` – app bootstrap, loop, hotkeys, canvas handling
+  - `simulation/` – physics, interactions, wave/turbulence, layers
+  - `ui/` – bindings, sync, visibility, presets, controls
+- `public/` – static assets, including `screenshot.png`
 
-## Notes on Conversion
+## Notes
 
-- The DOM id structure is preserved so the logic using `document.getElementById` continues to work.
-- Initialization (`boot()`) now runs inside a `useEffect` hook to ensure client-side only execution.
-- Module side-effects that rely on `window` (e.g. `matchMedia`) only execute client-side because the page component is marked `'use client'`.
-- All numeric & structural settings now have TypeScript interfaces for safer future extension.
+- The app uses a client component to ensure browser APIs only run in the browser.
+- Original DOM-based logic is preserved where possible while moving to React/Next.js.
 
 ## License
 
-MIT License. See [LICENSE](LICENSE) for details.
-
-## Security
-
-✅ **Dependency updates (2025-12-29):**
-- Upgraded `react` and `react-dom` to **19.2.3** to mitigate **CVE-2025-55183** and **CVE-2025-55184**.
-- Upgraded `next` to **16.0.7** to mitigate **CVE-2025-66478** (React2Shell / RSC RCE).
-
-**Remediation steps (required):**
-1. Run `npm install` to update your `package-lock.json`.
-2. Run `npm audit` and address any remaining advisories (use `npm audit fix` if possible).
-3. Rotate sensitive environment variables if your deployment was exposed prior to patching.
-4. Deploy immediately and verify the production build.
-
-**Helpful tools:** `npx fix-react2shell-next` can automate upgrades for Next.js projects.
-
-## Credits
-
-Originally created by [takeourcarsnow](https://github.com/takeourcarsnow). Converted to Next.js + TypeScript.
+MIT. See [LICENSE](LICENSE).
